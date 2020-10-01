@@ -1,3 +1,6 @@
+import java.util.Arrays;
+import java.util.List;
+
 public class Patient {
     private String firstName, lastName, phone, city, province;
 
@@ -14,15 +17,26 @@ public class Patient {
     }
 
     public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+        if (firstName.matches("[A-Z][a-z][A-z]*[-]?[A-z]*?"))
+            this.firstName = firstName;
+        else
+            throw new IllegalArgumentException("Name must have at least 2 characters and start with an upper case letter");
+}
 
     public String getLastName() {
-        return lastName;
+            return lastName;
     }
 
+    /**
+     * Validates that the last name starts with an upper case letter and has at least
+     * 2 characters.  Hyphenated names are accepted
+     * @param lastName
+     */
     public void setLastName(String lastName) {
-        this.lastName = lastName;
+        if (lastName.matches("[A-Z][a-z][A-z]*[-]?[A-z]*?"))
+            this.lastName = lastName;
+        else
+            throw new IllegalArgumentException("Last name must start with an upper case letter and have at least 2 characters");
     }
 
     public String getPhone() {
@@ -48,14 +62,33 @@ public class Patient {
     }
 
     public void setCity(String city) {
-        this.city = city;
+        if (city.matches("[A-Z][a-z][A-z]*"))
+            this.city = city;
+        else
+            throw new IllegalArgumentException("City must start with an " +
+                    "                       upper case letter and have 2+ characters");
+
     }
 
     public String getProvince() {
         return province;
     }
 
+    public static List<String> getListOfProvinces()
+    {
+        return Arrays.asList("NL","PE","NS","NB","QC","ON","MB","SK","AB","BC","YT","NT","NU");
+    }
+
     public void setProvince(String province) {
-        this.province = province;
+        province = province.toUpperCase();
+        if (getListOfProvinces().contains(province))
+            this.province = province;
+        else
+            throw new IllegalArgumentException("Valid provinces are: "+getListOfProvinces());
+    }
+
+    public String toString()
+    {
+        return String.format("%s %s from %s, %s", firstName, lastName, city, province);
     }
 }
