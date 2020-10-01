@@ -1,12 +1,17 @@
 public class Main {
     public static void main(String[] args) {
 
-        Patient tiredPatient = new Patient("Jaret","TiredGuy","555-456-1234","Barrie","ON");
+        Patient tiredPatient = new Patient("Jaret","TiredGuy","5554561234","Barrie","ON");
         System.out.println(tiredPatient);
+
 //        String validPhone = "(555)433-1234";
-//        String invalidPhone = "1231231234";
+        String invalidPhone = "1231231234";
 //        String phonePattern = "\\(?[2-9]\\d{2}\\)?[-\\s]?[2-9]\\d{2}[-\\s]?\\d{4}";
 //
+//               System.out.printf("invalidPhone is valid: %b\n",
+//                invalidPhone.replaceAll("[^0-9]", "").matches("[2-9]\\d{2}[2-9]\\d{2}\\d{4}"));
+
+
 //        System.out.printf("%s is a valid phone number: %b%n",validPhone,
 //                            validPhone.matches(phonePattern));
 //        System.out.printf("%s is a valid phone number: %b%n",invalidPhone,

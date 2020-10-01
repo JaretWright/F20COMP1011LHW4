@@ -1,7 +1,9 @@
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
 
 public class Patient {
+    private int patientID;
     private String firstName, lastName, phone, city, province;
 
     public Patient(String firstName, String lastName, String phone, String city, String province) {
@@ -10,6 +12,13 @@ public class Patient {
         setPhone(phone);
         setCity(city);
         setProvince(province);
+
+        //configure the patient ID from the Database
+        try {
+            patientID = DBUtility.insertNewPatient(this);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getFirstName() {
@@ -89,6 +98,7 @@ public class Patient {
 
     public String toString()
     {
-        return String.format("%s %s from %s, %s", firstName, lastName, city, province);
+        return String.format("Patient #: %d Name: %s %s from %s, %s", patientID,
+                                                firstName, lastName, city, province);
     }
 }
