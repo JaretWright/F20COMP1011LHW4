@@ -6,6 +6,15 @@ public class Patient {
     private int patientID;
     private String firstName, lastName, phone, city, province;
 
+    public Patient(int patientID, String firstName, String lastName, String phone, String city, String province) {
+        setPatientID(patientID);
+        setFirstName(firstName);
+        setLastName(lastName);
+        setPhone(phone);
+        setCity(city);
+        setProvince(province);
+    }
+
     public Patient(String firstName, String lastName, String phone, String city, String province) {
         setFirstName(firstName);
         setLastName(lastName);
@@ -23,6 +32,18 @@ public class Patient {
 
     public String getFirstName() {
         return firstName;
+    }
+
+    public int getPatientID() {
+        return patientID;
+    }
+
+    public void setPatientID(int patientID) {
+        if (patientID>0)
+            this.patientID = patientID;
+        else
+            throw new IllegalArgumentException("patient ID must be > 0");
+
     }
 
     public void setFirstName(String firstName) {
@@ -61,7 +82,7 @@ public class Patient {
      */
     public void setPhone(String phone) {
         if (phone.matches("\\(?[2-9]\\d{2}\\)?[-\\s]?[2-9]\\d{2}[-\\s]?\\d{4}"))
-            this.phone = phone;
+            this.phone = phone.replaceAll("[^0-9]", "");
         else
             throw new IllegalArgumentException("Phone number must match NPA-NXX-XXXX");
     }

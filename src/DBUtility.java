@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 
 public class DBUtility {
     private static String user = "student";
@@ -49,6 +50,47 @@ public class DBUtility {
             if (conn != null)
                 conn.close();
             return patientID;
+        }
+    }
+
+    public static ArrayList<Patient> getAllPatients() throws SQLException {
+        ArrayList<Patient> patients = new ArrayList<>();
+        Connection conn = null;
+        Statement sqlStatement = null;
+        ResultSet resultSet = null;
+
+        try{
+            //1. connect to the DB
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/camsChoice",
+                    user, password);
+
+            //2. create a statement object
+            sqlStatement = conn.createStatement();
+
+            //3. create the SQL query
+            resultSet = sqlStatement.executeQuery("SELECT * FROM patients");
+
+            //4. loop over the result set and create Patient objects
+            while (resultSet.next())
+            {
+                Patient newPatient = new Patient(resultSet.getInt("patientID"),
+                                            resultSet.getString("firstName"),
+                                            resultSet.getString("lastName"),
+                                            resultSet.getString("phone"),
+                                            resultSet.getString("city"),
+                                            resultSet.getString("province"));
+                patients.add(newPatient);
+            }
+
+        }catch ( Exception e)
+        {
+            e.printStackTrace();
+        }
+        finally {
+            if (conn !=null) conn.close();
+            if (resultSet != null) resultSet.close();
+            if (sqlStatement != null) resultSet.close();
+            return patients;
         }
     }
 }
